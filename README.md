@@ -52,5 +52,6 @@ The resulting passphrase is based upon an 58 alphanumeric alphabet and has 80 ch
 
 
 
-Powered by <img src="./signumj.svg" alt="signumj" height="24" align="middle" />
+Powered by 
+<img src="./signumj.svg" alt="signumj" height="48" align="middle" />
 
