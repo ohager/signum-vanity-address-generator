@@ -78,7 +78,7 @@ class VanityAddressGenerator implements Callable<String[]> {
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger as 5 for last position");
         }
 
-        if (target.length() > 4) {
+        if (target.length() > 4 && position != 4) {
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger as 4");
         }
 
