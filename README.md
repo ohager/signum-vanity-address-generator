@@ -1,4 +1,7 @@
 ![example workflow](https://github.com/ohager/signum-vanity-address-generator/actions/workflows/build-release.yml/badge.svg)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ohager_signum-vanity-address-generator&metric=security_rating)](https://sonarcloud.io/dashboard?id=ohager_signum-vanity-address-generator)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ohager_signum-vanity-address-generator&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=ohager_signum-vanity-address-generator)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ohager_signum-vanity-address-generator&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=ohager_signum-vanity-address-generator)
 
 # signum-vanity-address-generator
 
