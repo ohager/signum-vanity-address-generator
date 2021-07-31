@@ -54,10 +54,9 @@ java -jar signum-vag.jar -t=METAL -p=5 -w
 
 # Security
 
-The Vanity Address Generator uses a cryptographically secure randomized passphrase and checks if the resulting address meets the desired address pattern.
+The Vanity Address Generator uses a cryptographically secure (`SecureRandom`) randomized passphrase and checks if the resulting address meets the desired address pattern.
 Each iteration a new random passphrase is being generated, such there is no predictable pattern for the addresses/passphrases.
-The resulting passphrase is based upon an 58 alphanumeric alphabet and has 80 characters, so should be sufficiently strong.
-
+The resulting passphrase is either based upon an 58 alphanumeric alphabet and has 80 characters, or creates a [BIP39](https://en.bitcoin.it/wiki/Seed_phrase) phrase.
 
 
 Powered by 
