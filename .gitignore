@@ -24,6 +24,7 @@
 hs_err_pid*
 
 .code
+.gradle
 .idea
 build
 

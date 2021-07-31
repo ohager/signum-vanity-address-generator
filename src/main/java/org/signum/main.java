@@ -6,6 +6,7 @@ import signumj.crypto.SignumCrypto;
 import signumj.entity.SignumAddress;
 
 import java.security.SecureRandom;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 @CommandLine.Command(
         name = "signum-vag",
         mixinStandardHelpOptions = true,
-        version = "signum-vag 1.0",
+        version = "1.1",
         description = "Creates a vanity address for the Signum blockchain platform"
 )
 class VanityAddressGenerator implements Callable<String[]> {
@@ -24,22 +25,32 @@ class VanityAddressGenerator implements Callable<String[]> {
     CommandLine.Model.CommandSpec spec;
 
     @CommandLine.Option(names = {"-t", "--target"}, required = true, description = "The targeted vanity part")
-    private String target = "";
+    public String target = "";
 
     @CommandLine.Option(names = {"-p", "--position"}, description = "The position for the vanity part from 1 to 4", defaultValue = "1")
-    private Integer position = 1;
+    public Integer position = 1;
 
+    @CommandLine.Option(names = {"-w", "--words"}, description = "Creates a BIP39 12 word passphrase")
+    public boolean words;
 
-    private String getRandomSecret() {
-        return RandomStringUtils.random(80, 0, this.SecretChars.length, true, true, this.SecretChars, new SecureRandom());
+    public String getRandomSecret(Random randomizer) {
+        if(words){
+            String[] passwords = new String[12];
+            for(int i=0; i<passwords.length; ++i){
+                int r = randomizer.nextInt(BIP39Words.Words.length);
+                passwords[i] =  BIP39Words.Words[r];
+            }
+            return String.join(" ", passwords);
+        }
+        return RandomStringUtils.random(80, 0, this.SecretChars.length, true, true, this.SecretChars, randomizer);
     }
 
-    private String getAddress(String secret) {
+    public String getAddress(String secret) {
         SignumAddress address = SignumCrypto.getInstance().getAddressFromPassphrase(secret);
         return address.toString();
     }
 
-    private Pattern getMatchPattern() throws Exception {
+    public Pattern getMatchPattern() throws Exception {
         switch (position) {
             case 1:
                 return Pattern.compile("^S-" + target.toUpperCase());
@@ -54,14 +65,13 @@ class VanityAddressGenerator implements Callable<String[]> {
         }
     }
 
-    private String[] findSecret() throws Exception {
+    public String[] findSecret() throws Exception {
         String generated = "", secret = "";
-
-
+        Random randomizer = SecureRandom.getInstanceStrong();
         Pattern pattern = getMatchPattern();
         Matcher matcher = pattern.matcher(generated);
         while (!matcher.find()) {
-            secret = getRandomSecret();
+            secret = getRandomSecret(randomizer);
             generated = getAddress(secret);
             matcher = pattern.matcher(generated);
         }
@@ -69,7 +79,7 @@ class VanityAddressGenerator implements Callable<String[]> {
         return new String[]{secret, generated};
     }
 
-    private void validate() {
+    public void validate() {
         if(position < 1 || position > 4){
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --position must be at minimum 1 and maximum 4");
         }
@@ -92,7 +102,6 @@ class VanityAddressGenerator implements Callable<String[]> {
     @Override
     public String[] call() throws Exception {
         validate();
-
         System.out.println("Starting search for vanity address. This might take a few moments...");
         String[] result = findSecret();
         System.out.println("Found this address: " + result[1]);

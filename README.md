@@ -1,3 +1,5 @@
+![example workflow](https://github.com/ohager/signum-vanity-address-generator/actions/workflows/build-release.yml/badge.svg)
+
 # signum-vanity-address-generator
 
 Vanity Address Generator for the Signum Blockchain Platform
@@ -21,12 +23,14 @@ Creates a vanity address for the Signum blockchain platform
                           The position for the vanity part from 1 to 4
   -t, --target=<target>   The targeted vanity part
   -V, --version           Print version information and exit.
+  -w, --words             Creates a BIP39 12 word passphrase
 ```
 
 | Option | Description  | Required  | Default  |  
 |---|---|---|---|
 | -p  | The position in the adress part where the target shall appear, starting with 1 and at maximum 4. Position 2 would be `S-xxxx-HERE-xxxx-xxxxx`   |  No | 1  | 
 | -t  | The target string in the address which can be at maximum 4 characters, or 5 respectively for the last position (4). It must not contain the following chars `I 1 0 O `   |  Yes |   | 
+| -w  | Creates a 12 word passphrase based on BIP39 word list | No | false  | 
 
 Example:
 
@@ -37,9 +41,10 @@ java -jar signum-vag.jar -t=BEER
 ```
 
 The following example _might_ generate the following address: `S-RT5V-765H-YTU6-METAL`
+and a twelve words passphrase.
 
 ```bash 
-java -jar signum-vag.jar -t=METAL -p=5 
+java -jar signum-vag.jar -t=METAL -p=5 -w
 ```
 
 > Note that the generation can take a while (up to some minutes), especially when wanting 4 or 5 chars. 

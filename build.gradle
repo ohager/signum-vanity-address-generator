@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id "org.sonarqube" version "3.3"
 }
 
 group 'org.signum'
-version '1.0'
+version '1.1'
 
 mainClassName = 'org.signum.VanityAddressGenerator'
 
@@ -20,6 +21,14 @@ dependencies {
     annotationProcessor 'info.picocli:picocli-codegen:4.6.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "ohager_signum-vanity-address-generator"
+        property "sonar.organization", "ohager"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 test {
