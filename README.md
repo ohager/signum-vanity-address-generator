@@ -8,7 +8,7 @@ Create your personalized Signum Address, like `S-BEER-XYBN-2G34-H98GT`
 
 # How it works
 
-> Prerequisites: [OpenJDK 1.8](https://openjdk.java.net/install/) installed
+> Prerequisites: [OpenJDK 11](https://openjdk.java.net/install/) installed
 
 Download the jar file from the Github releases and run
 
