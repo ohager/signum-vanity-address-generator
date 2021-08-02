@@ -30,13 +30,13 @@ class VanityAddressGenerator implements Callable<Boolean> {
     @CommandLine.Option(names = {"-t", "--target"}, required = true, description = "The targeted vanity part")
     public String target = "";
 
-    @CommandLine.Option(names = {"-p", "--position"}, description = "The position for the vanity part from 1 to 4", defaultValue = "1")
+    @CommandLine.Option(names = {"-p", "--position"}, description = "The position for the vanity part from 1 to 4 (default: 1)", defaultValue = "1")
     public Integer position = 1;
 
     @CommandLine.Option(names = {"-w", "--words"}, description = "Creates a BIP39 12 word passphrase")
     public boolean words;
 
-    @CommandLine.Option(names = {"-o", "--timeout"}, description = "Timeout to cancel the search after x minutes passed", defaultValue = "30")
+    @CommandLine.Option(names = {"-o", "--timeout"}, description = "Timeout to cancel the search after x minutes passed (default: 30)", defaultValue = "30")
     public int timeout = 30;
 
     public String getRandomSecret(Random randomizer) {
@@ -105,11 +105,22 @@ class VanityAddressGenerator implements Callable<Boolean> {
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --position must be at minimum 1 and maximum 4");
         }
 
-        if (target.length() > 5 && position == 4) {
+        if(target.length() > 4){
+            this.position = 4;
+        }
+
+        if (position == 4 && target.length() > 5) {
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger than 5 for last position");
         }
 
-        if (target.length() > 4 && position != 4) {
+        if(position == 4 ){
+            Pattern pattern = Pattern.compile("^[2-9A-H]");
+            if (!pattern.matcher(target.toUpperCase()).find()) {
+                throw new CommandLine.ParameterException(spec.commandLine(), "Option --target for last segment must begin with with letter [2..9] or [A..H]");
+            }
+        }
+
+        if (position != 4 && target.length() > 4) {
             throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger than 4");
         }
 

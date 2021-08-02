@@ -44,14 +44,15 @@ The following example _might_ generate the following address: `S-BEER-9U6Y-BS43-
 java -jar signum-vanity.jar -t=BEER 
 ```
 
-The following example _might_ generate the following address: `S-RT5V-765H-YTU6-METAL`
+The following example _might_ generate the following address: `S-RT5V-765H-YTU6-5PACE`
 and a twelve words passphrase, which stops searching after 15 minutes passed. 
 
 ```bash 
-java -jar signum-vanity.jar -t=METAL -p=4 -w -o=15
+java -jar signum-vanity.jar -t=5PACE -p=4 -w -o=15
 ```
 
-> Note that the generation can take a while (up to some minutes), especially when wanting 4 or 5 chars. 
+> Note that the generation can take a while (up to some minutes), especially when wanting 4 or 5 chars.
+> The last part can only start with letters [2-9A-H]
 
 # Security
 
