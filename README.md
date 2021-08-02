@@ -15,39 +15,40 @@ Create your personalized Signum Address, like `S-BEER-XYBN-2G34-H98GT`
 
 Download the jar file from the Github releases and run
 
-`java -jar signum-vag.jar --help`
+`java -jar signum-vanity.jar --help`
 
 
 ```
-Usage: signum-vag [-hV] [-p=<position>] -t=<target>
+Usage: signum-vanity [-hVw] [-o=<timeout>] [-p=<position>] -t=<target>
 Creates a vanity address for the Signum blockchain platform
-  -h, --help              Show this help message and exit.
-  -p, --position=<position>
-                          The position for the vanity part from 1 to 4
-  -t, --target=<target>   The targeted vanity part
-  -V, --version           Print version information and exit.
-  -w, --words             Creates a BIP39 12 word passphrase
+  -h, --help                Show this help message and exit.
+  -o, --timeout=<timeout>   Timeout to cancel the search after x minutes passed
+  -p, --position=<position> The position for the vanity part from 1 to 4
+  -t, --target=<target>     The targeted vanity part
+  -V, --version             Print version information and exit.
+  -w, --words               Creates a BIP39 12 word passphrase
 ```
 
 | Option | Description  | Required  | Default  |  
 |---|---|---|---|
-| -p  | The position in the adress part where the target shall appear, starting with 1 and at maximum 4. Position 2 would be `S-xxxx-HERE-xxxx-xxxxx`   |  No | 1  | 
+| -p  | The position in the address part where the target shall appear, starting with 1 and at maximum 4. Position 2 would be `S-xxxx-HERE-xxxx-xxxxx`   |  No | 1  | 
 | -t  | The target string in the address which can be at maximum 4 characters, or 5 respectively for the last position (4). It must not contain the following chars `I 1 0 O `   |  Yes |   | 
 | -w  | Creates a 12 word passphrase based on BIP39 word list | No | false  | 
+| -o  | Defines a timeout in minutes.   | No | 30  | 
 
 Example:
 
 The following example _might_ generate the following address: `S-BEER-9U6Y-BS43-PL79A`
 
 ```bash 
-java -jar signum-vag.jar -t=BEER 
+java -jar signum-vanity.jar -t=BEER 
 ```
 
 The following example _might_ generate the following address: `S-RT5V-765H-YTU6-METAL`
-and a twelve words passphrase.
+and a twelve words passphrase, which stops searching after 15 minutes passed. 
 
 ```bash 
-java -jar signum-vag.jar -t=METAL -p=5 -w
+java -jar signum-vanity.jar -t=METAL -p=4 -w -o=15
 ```
 
 > Note that the generation can take a while (up to some minutes), especially when wanting 4 or 5 chars. 
