@@ -85,11 +85,11 @@ class VanityAddressGenerator implements Callable<String[]> {
         }
 
         if (target.length() > 5 && position == 4) {
-            throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger as 5 for last position");
+            throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger than 5 for last position");
         }
 
         if (target.length() > 4 && position != 4) {
-            throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger as 4");
+            throw new CommandLine.ParameterException(spec.commandLine(), "Option --target must not be larger than 4");
         }
 
         Pattern pattern = Pattern.compile("[1I0O]");
@@ -102,7 +102,7 @@ class VanityAddressGenerator implements Callable<String[]> {
     @Override
     public String[] call() throws Exception {
         validate();
-        System.out.println("Starting search for vanity address. This might take a few moments...");
+        System.out.println("Starting search for vanity address. This might take quite a few moments...");
         String[] result = findSecret();
         System.out.println("Found this address: " + result[1]);
         System.out.println("This is the secret: " + result[0]);
